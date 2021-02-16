@@ -1,0 +1,248 @@
+<html>
+
+<head>
+
+    <style>
+        body{
+	font-size: 20px;
+	font-family: sans-serif;
+	color: #333;
+}
+.question{
+	font-weight: 600;
+}
+.answers {
+  margin-bottom: 20px;
+}
+.answers label{
+  display: block;
+}
+#submit{
+	font-family: sans-serif;
+	font-size: 20px;
+	background-color: #279;
+	color: #fff;
+	border: 0px;
+	border-radius: 3px;
+	padding: 20px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+#submit:hover{
+	background-color: #38a;
+  
+}
+
+#bonus{
+	font-family: sans-serif;
+	font-size: 20px;
+	background-color: #279;
+	color: #fff;
+	border: 0px;
+	border-radius: 3px;
+	padding: 20px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+#bonus:hover{
+	background-color: #38a;
+  
+}
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Fun Facts About Dan Quiz</h1>
+    <div class="quiz-container">
+      <div id="quiz"></div>
+    </div>
+    <button id="submit">Submit Answers</button>
+    <div id="results"></div>
+    <h2>Bonus Question Random Answer</h2>
+    <p><b>Since Dan is falling behind, will he be able to pass this course and get a decent grade?</b></p>
+    <button id="bonus">Random Answer Bonus</button>
+    
+    
+
+   <script>
+    (function(){
+        function buildQuiz(){
+
+          const output = [];
+          myQuestions.forEach(
+            (currentQuestion, questionNumber) => {
+
+              const answers = [];
+
+              for(letter in currentQuestion.answers){
+    
+                answers.push(
+                  `<label>
+                    <input type="radio" name="question${questionNumber}" value="${letter}">
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                  </label>`
+                );
+              }
+      
+              output.push(
+                `<div class="question"> ${currentQuestion.question} </div>
+                <div class="answers"> ${answers.join('')} </div>`
+              );
+            }
+          );
+
+          quizContainer.innerHTML = output.join('');
+        }
+      
+        function showResults(){
+
+          const answerContainers = quizContainer.querySelectorAll('.answers');
+      
+          // keep track of user's answers
+          let numCorrect = 0;
+      
+          // for each question...
+          myQuestions.forEach( (currentQuestion, questionNumber) => {
+      
+            // find selected answer
+            const answerContainer = answerContainers[questionNumber];
+            const selector = `input[name=question${questionNumber}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+      
+            // if answer is correct
+            if(userAnswer === currentQuestion.correctAnswer){
+              // add to the number of correct answers
+              numCorrect++;
+      
+              // color the answers green
+              answerContainers[questionNumber].style.color = 'green';
+            }
+            // if answer is wrong or blank
+            else{
+              // color the answers red
+              answerContainers[questionNumber].style.color = 'red';
+            }
+          });
+      
+          // show number of correct answers out of total
+          resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+        }
+      
+        const quizContainer = document.getElementById('quiz');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit');
+        const myQuestions = [
+          {
+            question: "Is Dan a Procrastinator?",
+            answers: {
+              a: "True",
+              b: "False",
+            },
+            correctAnswer: "a"
+          },
+          {
+            question: "Did Dan get 3 feet of snow losing power and internet for a week?",
+            answers: {
+              a: "True",
+              b: "False",
+            },
+            correctAnswer: "a"
+          },
+          {
+            question: "Is this or school a game?",
+            answers: {
+              a: "True",
+              b: "False",
+            },
+            correctAnswer: "b"
+          }
+        ];   
+      
+        
+        buildQuiz();
+      
+        
+        submitButton.addEventListener('click', showResults);
+
+      })();
+
+      // Other than a number of modifications the above script was 
+      // for practicing, taking notes, and relearning certain elements.
+      // It's been 10 years!
+    </script>
+
+<script>
+
+  // This is entirely mine...
+  document.getElementById("bonus").onclick = function() {myFunction()};
+  
+  function myFunction() {
+
+        // random value generated 
+        var x = Math.floor(Math.random() * 11 + 1);
+
+        if (x == 1)
+        {
+          alert("It is certain. You can click OK and try again.");
+        }
+        if (x == 2)
+        {
+        alert("Reply hazy try again. You can click OK and try again.");
+        }
+        if (x == 3)
+        {
+        alert("Don’t count on it. You can click OK and try again.");
+        }
+        if (x == 4)
+        {
+        alert("Without a doubt. You can click OK and try again.");
+        }
+        if (x == 5)
+        {
+        alert("Better not tell you now. You can click OK and try again.");
+        }
+        if (x == 6)
+        {
+        alert("Outlook not so good. You can click OK and try again.");
+        }
+        if (x == 7)
+        {
+        alert("You may rely on it. You can click OK and try again.");
+        }
+        if (x == 8)
+        {
+        alert("Ask again later. You can click OK and try again.");
+        }
+        if (x == 9)
+        {
+        alert("My sources say no. You can click OK and try again.");
+        }
+        if (x == 10)
+        {
+        alert("Yes definitely. You can click OK and try again.");
+        }
+        if (x == 11)
+        {
+        alert("Cannot predict now. You can click OK and try again.");
+        }
+        if (x == 12)
+        {
+        alert("Very doubtful. You can click OK and try again.");
+        }
+
+  }
+  </script>
+
+
+
+
+
+
+
+
+</body>
+</html>
